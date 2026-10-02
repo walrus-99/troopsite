@@ -1,1 +1,0 @@
-"""Troopsite FastAPI application package."""
