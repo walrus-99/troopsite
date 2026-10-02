@@ -1,0 +1,93 @@
+<div id="roster-tables">
+  <section>
+    <h2>Members</h2>
+    <div class="overflow-auto">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Grade</th>
+            <th>Parents</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for member in members %}
+            <tr>
+              <td>{{ member.first_name }} {{ member.last_name }}</td>
+              <td>{{ member.age or '' }}</td>
+              <td>{{ member.grade.value if member.grade else '' }}</td>
+              <td>
+                {% for parent in member.parents %}
+                  <span class="pill">
+                    {{ parent.first_name }} {{ parent.last_name }}
+                    <button
+                      class="link-action"
+                      type="button"
+                      hx-post="/roster/members/{{ member.id }}/parents/{{ parent.id }}/unlink"
+                      hx-target="#roster-tables"
+                      hx-swap="outerHTML"
+                      aria-label="Unlink {{ parent.first_name }} {{ parent.last_name }} from {{ member.first_name }} {{ member.last_name }}"
+                    >x</button>
+                  </span>
+                {% else %}
+                  <span class="muted">None linked</span>
+                {% endfor %}
+              </td>
+              <td><a href="/roster/members/{{ member.id }}/edit">Edit</a></td>
+            </tr>
+          {% else %}
+            <tr><td colspan="5">No members yet.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Parents</h2>
+    <div class="overflow-auto">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Members</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for parent in parents %}
+            <tr>
+              <td>{{ parent.first_name }} {{ parent.last_name }}</td>
+              <td>{{ parent.primary_email or '' }}</td>
+              <td>{{ parent.primary_phone or '' }}</td>
+              <td>
+                {% for member in parent.members %}
+                  <span class="pill">
+                    {{ member.first_name }} {{ member.last_name }}
+                    <button
+                      class="link-action"
+                      type="button"
+                      hx-post="/roster/parents/{{ parent.id }}/members/{{ member.id }}/unlink"
+                      hx-target="#roster-tables"
+                      hx-swap="outerHTML"
+                      aria-label="Unlink {{ member.first_name }} {{ member.last_name }} from {{ parent.first_name }} {{ parent.last_name }}"
+                    >x</button>
+                  </span>
+                {% else %}
+                  <span class="muted">None linked</span>
+                {% endfor %}
+              </td>
+              <td><a href="/roster/parents/{{ parent.id }}/edit">Edit</a></td>
+            </tr>
+          {% else %}
+            <tr><td colspan="5">No parents yet.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>

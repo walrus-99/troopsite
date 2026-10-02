@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Edit Parent | Troopsite</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}">
+    <script defer src="https://unpkg.com/htmx.org@2.0.4"></script>
+  </head>
+  <body>
+    <main class="container roster-page narrow-page">
+      <nav>
+        <ul><li><strong>Troopsite</strong></li></ul>
+        <ul><li><a href="/roster">Back to roster</a></li></ul>
+      </nav>
+      <article>
+        <h1>Edit parent</h1>
+        <form method="post" action="/roster/parents/{{ parent.id }}/edit">
+          <div class="grid">
+            <label>First name
+              <input name="first_name" value="{{ parent.first_name }}" required>
+            </label>
+            <label>Last name
+              <input name="last_name" value="{{ parent.last_name }}" required>
+            </label>
+          </div>
+          <label>Primary email
+            <input type="email" name="primary_email" value="{{ parent.primary_email or '' }}">
+          </label>
+          <label>Secondary email
+            <input type="email" name="secondary_email" value="{{ parent.secondary_email or '' }}">
+          </label>
+          <div class="grid">
+            <label>Primary phone
+              <input name="primary_phone" value="{{ parent.primary_phone or '' }}">
+            </label>
+            <label>Secondary phone
+              <input name="secondary_phone" value="{{ parent.secondary_phone or '' }}">
+            </label>
+          </div>
+          <fieldset class="check-list">
+            <legend>Linked members</legend>
+            {% for roster_member in members %}
+              <label><input type="checkbox" name="member_ids" value="{{ roster_member.id }}" {% if roster_member in parent.members %}checked{% endif %}> {{ roster_member.first_name }} {{ roster_member.last_name }}</label>
+            {% else %}
+              <p class="muted">No members yet.</p>
+            {% endfor %}
+          </fieldset>
+          <button type="submit">Save parent</button>
+        </form>
+      </article>
+    </main>
+  </body>
+</html>

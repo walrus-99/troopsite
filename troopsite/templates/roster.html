@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Roster | Troopsite</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}">
+    <script defer src="https://unpkg.com/htmx.org@2.0.4"></script>
+  </head>
+  <body>
+    <main class="container roster-page">
+      <nav>
+        <ul>
+          <li><strong>Troopsite</strong></li>
+        </ul>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/docs">API docs</a></li>
+        </ul>
+      </nav>
+
+      <header class="page-header">
+        <p class="eyebrow">Roster</p>
+        <h1>People and family links</h1>
+        <p>Add parents and members, then connect each member to one or more parents.</p>
+      </header>
+
+      <section class="grid roster-forms">
+        <article>
+          <h2>Add Member</h2>
+          <form method="post" action="/roster/members">
+            <div class="grid">
+              <label>First name
+                <input name="first_name" autocomplete="given-name" required>
+              </label>
+              <label>Last name
+                <input name="last_name" autocomplete="family-name" required>
+              </label>
+            </div>
+            <div class="grid">
+              <label>Age
+                <input type="number" name="age" min="0" max="120" required>
+              </label>
+              <label>Grade
+                <select name="grade" required>
+                  {% for grade in grades %}
+                    <option value="{{ grade.value }}">{{ grade.value }}</option>
+                  {% endfor %}
+                </select>
+              </label>
+            </div>
+            <fieldset class="check-list">
+              <legend>Linked parents</legend>
+              {% for parent in parents %}
+                <label><input type="checkbox" name="parent_ids" value="{{ parent.id }}"> {{ parent.first_name }} {{ parent.last_name }}</label>
+              {% else %}
+                <p class="muted">Add a parent first to link them here.</p>
+              {% endfor %}
+            </fieldset>
+            <button type="submit">Add member</button>
+          </form>
+        </article>
+
+        <article>
+          <h2>Add Parent</h2>
+          <form method="post" action="/roster/parents">
+            <div class="grid">
+              <label>First name
+                <input name="first_name" autocomplete="given-name" required>
+              </label>
+              <label>Last name
+                <input name="last_name" autocomplete="family-name" required>
+              </label>
+            </div>
+            <label>Primary email
+              <input type="email" name="primary_email" autocomplete="email">
+            </label>
+            <label>Secondary email
+              <input type="email" name="secondary_email">
+            </label>
+            <div class="grid">
+              <label>Primary phone
+                <input name="primary_phone" autocomplete="tel">
+              </label>
+              <label>Secondary phone
+                <input name="secondary_phone">
+              </label>
+            </div>
+            <fieldset class="check-list">
+              <legend>Linked members</legend>
+              {% for member in members %}
+                <label><input type="checkbox" name="member_ids" value="{{ member.id }}"> {{ member.first_name }} {{ member.last_name }}</label>
+              {% else %}
+                <p class="muted">Add a member first to link them here.</p>
+              {% endfor %}
+            </fieldset>
+            <button type="submit">Add parent</button>
+          </form>
+        </article>
+      </section>
+
+      {% include "_roster_tables.html" %}
+    </main>
+  </body>
+</html>
