@@ -1,0 +1,39 @@
+{{ define "main" }}
+
+<section class="container section">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">Resources</p>
+      <h1>Useful Links</h1>
+    </div>
+  </div>
+
+  <div class="links-grid">
+    {{ range .Site.Data.links.links }}
+      <article class="card link-card">
+        <h2>
+          <a href="{{ .url }}" target="_blank" rel="noopener noreferrer">
+            {{ .name }}
+          </a>
+        </h2>
+
+        {{ with .description }}
+          <p>{{ . }}</p>
+        {{ end }}
+
+        <a
+          class="link-action"
+          href="{{ .url }}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Visit site →
+        </a>
+      </article>
+    {{ else }}
+      <p>No links have been added yet.</p>
+    {{ end }}
+  </div>
+</section>
+
+{{ end }}

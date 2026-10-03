@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Troop 4209</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on Troop 4209</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 02 Oct 2026 16:00:00 -0700</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Welcome to Our Troop Website</title>
+      <link>http://localhost:1313/announcements/welcome/</link>
+      <pubDate>Fri, 02 Oct 2026 16:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/announcements/welcome/</guid>
+      <description>Welcome to the new Troop 4209 website. This will be our home for announcements, resources, and troop information.</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,21 @@
+events:
+  - title: "Troop Meeting"
+    date: "2026-10-08"
+    time: "6:00 PM - 7:30 PM"
+    location: "Example Elementary School"
+    address: "123 Example Street, San Diego, CA"
+    description: "Regular troop meeting."
+
+  - title: "Troop Meeting"
+    date: "2026-10-22"
+    time: "6:00 PM - 7:30 PM"
+    location: "Example Elementary School"
+    address: "123 Example Street, San Diego, CA"
+    description: "Regular troop meeting."
+
+  - title: "Fall Campout"
+    date: "2026-10-24"
+    time: "9:00 AM"
+    location: "Camp Example"
+    address: "456 Camp Road, San Diego, CA"
+    description: "Troop fall camping weekend."

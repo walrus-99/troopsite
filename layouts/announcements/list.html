@@ -1,0 +1,20 @@
+{{ define "main" }}
+
+<section class="container section">
+  <h1>Announcements</h1>
+
+  <div class="announcement-grid">
+    {{ range .Pages.ByDate.Reverse }}
+      <article class="card">
+        <p class="card-date">{{ .Date.Format "January 2, 2006" }}</p>
+        <h2>
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        </h2>
+        <p>{{ .Summary }}</p>
+        <a href="{{ .RelPermalink }}">Read more →</a>
+      </article>
+    {{ end }}
+  </div>
+</section>
+
+{{ end }}

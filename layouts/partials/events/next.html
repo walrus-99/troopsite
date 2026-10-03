@@ -1,0 +1,48 @@
+{{ $today := now.Format "2006-01-02" }}
+{{ $upcoming := where .Site.Data.events.events "date" "ge" $today }}
+{{ $upcoming = sort $upcoming "date" "asc" }}
+
+{{ if gt (len $upcoming) 0 }}
+
+  {{ $event := index $upcoming 0 }}
+  {{ $date := time.AsTime $event.date }}
+
+  <article class="next-event-card">
+    <p class="eyebrow">Next Up</p>
+
+    <h2>{{ $event.title }}</h2>
+
+    <p class="event-date">
+      {{ $date.Format "Monday, January 2, 2006" }}
+    </p>
+
+    {{ with $event.time }}
+      <p><strong>{{ . }}</strong></p>
+    {{ end }}
+
+    {{ with $event.location }}
+      <p>
+        <strong>{{ . }}</strong>
+
+        {{ with $event.address }}
+          <br>{{ . }}
+        {{ end }}
+      </p>
+    {{ end }}
+
+    {{ with $event.description }}
+      <p>{{ . }}</p>
+    {{ end }}
+
+    <a href="/events/">View all upcoming events →</a>
+  </article>
+
+{{ else }}
+
+  <article class="next-event-card">
+    <p class="eyebrow">Next Up</p>
+    <h2>No upcoming events</h2>
+    <p>Check back soon for the next troop event.</p>
+  </article>
+
+{{ end }}

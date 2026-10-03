@@ -1,0 +1,99 @@
+{{ define "main" }}
+
+<section class="container section">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">Troop Directory</p>
+      <h1>Troop Roster</h1>
+    </div>
+  </div>
+
+  <div class="roster-table-wrapper">
+    <table class="roster-table">
+      <thead>
+        <tr>
+          <th>Member</th>
+          <th>Grade</th>
+          <th>Parent / Guardian</th>
+          <th>Email</th>
+          <th>Phone</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {{ range .Site.Data.roster.members }}
+          {{ $member := . }}
+
+          {{ range $index, $parent := .parents }}
+            <tr>
+              {{ if eq $index 0 }}
+                <td
+                  class="member-name"
+                  rowspan="{{ len $member.parents }}"
+                >
+                  {{ $member.name }}
+                </td>
+
+                <td
+                  class="member-grade"
+                  rowspan="{{ len $member.parents }}"
+                >
+                  {{ $member.grade }}
+                </td>
+              {{ end }}
+
+              <td>{{ $parent.name }}</td>
+
+              <td>
+                {{ with $parent.email }}
+                  <a href="mailto:{{ . }}">{{ . }}</a>
+                {{ end }}
+              </td>
+
+              <td>
+                {{ with $parent.phone }}
+                  <a href="tel:{{ . }}">{{ . }}</a>
+                {{ end }}
+              </td>
+            </tr>
+          {{ end }}
+        {{ end }}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="roster-cards">
+    {{ range .Site.Data.roster.members }}
+      <article class="card roster-card">
+        <div class="roster-card-header">
+          <h2>{{ .name }}</h2>
+          <span class="grade-badge">{{ .grade }}</span>
+        </div>
+
+        <div class="roster-parents">
+          {{ range .parents }}
+            <section class="parent-card">
+              <h3>{{ .name }}</h3>
+
+              {{ with .email }}
+                <p>
+                  <strong>Email:</strong><br>
+                  <a href="mailto:{{ . }}">{{ . }}</a>
+                </p>
+              {{ end }}
+
+              {{ with .phone }}
+                <p>
+                  <strong>Phone:</strong><br>
+                  <a href="tel:{{ . }}">{{ . }}</a>
+                </p>
+              {{ end }}
+            </section>
+          {{ end }}
+        </div>
+      </article>
+    {{ end }}
+  </div>
+</section>
+
+{{ end }}

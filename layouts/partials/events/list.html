@@ -1,0 +1,48 @@
+{{ $events := .events }}
+
+<div class="event-list">
+  {{ range $events }}
+    {{ $event := . }}
+    {{ $date := time.AsTime $event.date }}
+
+    <article class="event-item">
+      <div class="event-date-box">
+        <span class="event-month">
+          {{ $date.Format "Jan" }}
+        </span>
+
+        <span class="event-day">
+          {{ $date.Format "2" }}
+        </span>
+      </div>
+
+      <div class="event-details">
+        <h2>{{ $event.title }}</h2>
+
+        <p class="event-meta">
+          <strong>{{ $date.Format "Monday, January 2, 2006" }}</strong>
+
+          {{ with $event.time }}
+            <br>{{ . }}
+          {{ end }}
+        </p>
+
+        {{ with $event.location }}
+          <p>
+            <strong>{{ . }}</strong>
+
+            {{ with $event.address }}
+              <br>{{ . }}
+            {{ end }}
+          </p>
+        {{ end }}
+
+        {{ with $event.description }}
+          <p>{{ . }}</p>
+        {{ end }}
+      </div>
+    </article>
+  {{ else }}
+    <p>No events found.</p>
+  {{ end }}
+</div>

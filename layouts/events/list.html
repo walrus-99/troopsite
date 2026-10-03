@@ -1,0 +1,44 @@
+{{ define "main" }}
+
+{{ $today := now.Format "2006-01-02" }}
+{{ $upcoming := where .Site.Data.events.events "date" "ge" $today }}
+{{ $upcoming = sort $upcoming "date" "asc" }}
+
+<section class="container section">
+
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">Troop Schedule</p>
+      <h1>Upcoming Events</h1>
+    </div>
+
+    <a href="/events/past/">Past events →</a>
+  </div>
+
+  {{ if gt (len $upcoming) 0 }}
+
+    <div class="events-next">
+      {{ partial "events/next.html" . }}
+    </div>
+
+    {{ if gt (len $upcoming) 1 }}
+
+      <div class="events-upcoming">
+        <h2>More Upcoming Events</h2>
+
+        {{ $remaining := after 1 $upcoming }}
+
+        {{ partial "events/list.html" (dict "events" $remaining) }}
+      </div>
+
+    {{ end }}
+
+  {{ else }}
+
+    <p>No upcoming events are currently scheduled.</p>
+
+  {{ end }}
+
+</section>
+
+{{ end }}

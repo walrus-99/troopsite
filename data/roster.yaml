@@ -1,0 +1,17 @@
+members:
+  - name: "Alice Smith"
+    grade: "4th"
+    parents:
+      - name: "Jane Smith"
+        email: "jane@example.com"
+        phone: "619-555-1234"
+      - name: "John Smith"
+        email: "john@example.com"
+        phone: "619-555-5678"
+
+  - name: "Emily Jones"
+    grade: "5th"
+    parents:
+      - name: "Sarah Jones"
+        email: "sarah@example.com"
+        phone: "619-555-9876"

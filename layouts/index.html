@@ -1,0 +1,77 @@
+{{ define "main" }}
+
+<section class="hero">
+  <div class="container">
+    <p class="eyebrow">Girl Scout Troop 4209</p>
+    <h1>Girl Scout</h1>
+    <h1>Troop 4209</h1>
+
+  </div>
+</section>
+
+<section class="container section">
+    {{ partial "events/next.html" . }}
+</section>
+
+<section class="container section">
+  <div class="section-heading">
+    <h2>Latest Announcements</h2>
+    <a href="/announcements/">View all</a>
+  </div>
+
+  <div class="announcement-grid">
+    {{ range first 10 (where .Site.RegularPages "Section" "announcements") }}
+      <article class="card">
+        <p class="card-date">{{ .Date.Format "January 2, 2006" }}</p>
+
+        <h3>
+          <a href="{{ .RelPermalink }}">
+            {{ .Title }}
+          </a>
+        </h3>
+
+        <p>{{ .Summary }}</p>
+
+        <a href="{{ .RelPermalink }}">
+          Read more →
+        </a>
+      </article>
+    {{ else }}
+      <p>No announcements yet.</p>
+    {{ end }}
+  </div>
+</section>
+
+<section class="container section">
+  <div class="section-heading">
+    <h2>Useful Links</h2>
+    <a href="/links/">View all</a>
+  </div>
+
+  <div class="links-grid">
+    {{ range first 3 .Site.Data.links.links }}
+      <article class="card link-card">
+        <h3>
+          <a href="{{ .url }}" target="_blank" rel="noopener noreferrer">
+            {{ .name }}
+          </a>
+        </h3>
+
+        {{ with .description }}
+          <p>{{ . }}</p>
+        {{ end }}
+
+        <a
+          class="link-action"
+          href="{{ .url }}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Visit site →
+        </a>
+      </article>
+    {{ end }}
+  </div>
+</section>
+
+{{ end }}

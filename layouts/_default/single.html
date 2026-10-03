@@ -1,0 +1,13 @@
+{{ define "main" }}
+
+<article class="container article">
+  <p class="card-date">{{ .Date.Format "January 2, 2006" }}</p>
+
+  <h1>{{ .Title }}</h1>
+
+  <div class="article-body">
+    {{ .Content }}
+  </div>
+</article>
+
+{{ end }}
